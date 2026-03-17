@@ -8,9 +8,9 @@ This repository contains scripts used for the analyses in:
 
 - `inputs/`: Example input files containing missense variants derived from MAVE datasets.  
 - `annotations/`: Additional files used by scripts. **Large files are not included** in the repository and must be downloaded separately:  
-  - `AlphaMissense_hg38.tsv`: AlphaMissense scores ([https://github.com/google-deepmind/alphamissense])  
-  - `HUMAN_9606_idmapping.dat`: UniProt ID mapping ([https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/idmapping/by_organism/HUMAN_9606_idmapping.dat.gz])  
-  - `variant_summary.txt`: ClinVar variant summary ([https://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/variant_summary.txt.gz])  
+  - [`AlphaMissense_hg38.tsv`](https://github.com/google-deepmind/alphamissense): AlphaMissense scores  
+  - [`HUMAN_9606_idmapping.dat`](https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/idmapping/by_organism/HUMAN_9606_idmapping.dat.gz): UniProt ID mapping  
+  - [`variant_summary.txt`](https://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/variant_summary.txt.gz): ClinVar variant summary  
 
 - `MAVE_primary_analysis.R`: Performs residue-level analysis of missense variants using MAVE scores, calculating LOF proportions, likelihood ratios, evidence strength, and generating summary plots.  
 
@@ -26,8 +26,33 @@ This repository contains scripts used for the analyses in:
 
 - `VEP_discordant_analysis.R`: Computes per-gene and domain-stratified AUCs for VEP tools on MAVE missense variants, generating heatmaps and bar plots to visualize predictive performance and discordance.
 
-## Requirements
-
-R with packages: `readxl`, `dplyr`, `tidyr`, `ggplot2`, `stringr`, `httr`, `jsonlite`, `purrr`
-
 ## Usage
+
+### 1. Set up your R environment
+Install required packages (if not already installed):
+
+```r
+install.packages(c("readxl", "dplyr", "tidyr", "ggplot2", "stringr", "httr", "jsonlite", "purrr"))
+
+### 2. Prepare input files
+
+Input file containing all missense variants from MAVE datasets are located in `inputs/`.  
+
+Download the large annotation files into `annotations/`:
+
+- [`AlphaMissense_hg38.tsv`](https://github.com/google-deepmind/alphamissense)  
+- [`HUMAN_9606_idmapping.dat`](https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/idmapping/by_organism/HUMAN_9606_idmapping.dat.gz)  
+- [`variant_summary.txt`](https://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/variant_summary.txt.gz)
+
+### 3. Run the scripts
+
+Execute the analysis scripts in order, depending on your goal:
+
+```r
+source("MAVE_primary_analysis.R")                 # Residue-level analysis
+source("MAVE_secondary_analysis.R")               # Variant-level annotation
+source("MAVE_secondary_analysis_results.R")       # Evaluate Grantham distances, ROC, concordance
+source("new_ACMG_rule.R")                         # Compute ACMG-like scores
+source("modified_ACMG_rule.R")                    # Compute modified ACMG scores
+source("ACMG_rule_results.R")                     # Generate summary plots
+source("VEP_discordant_analysis.R")              # Compute per-gene/domain AUCs and heatmaps
