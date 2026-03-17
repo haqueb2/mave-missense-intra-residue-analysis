@@ -33,6 +33,7 @@ Install required packages (if not already installed):
 
 ```r
 install.packages(c("readxl", "dplyr", "tidyr", "ggplot2", "stringr", "httr", "jsonlite", "purrr"))
+```
 
 ### 2. Prepare input files
 
@@ -48,11 +49,10 @@ Download the large annotation files into `annotations/`:
 
 Execute the analysis scripts in order, depending on your goal:
 
-```r
-source("MAVE_primary_analysis.R")                 # Residue-level analysis
-source("MAVE_secondary_analysis.R")               # Variant-level annotation
-source("MAVE_secondary_analysis_results.R")       # Evaluate Grantham distances, ROC, concordance
-source("new_ACMG_rule.R")                         # Compute ACMG-like scores
-source("modified_ACMG_rule.R")                    # Compute modified ACMG scores
-source("ACMG_rule_results.R")                     # Generate summary plots
-source("VEP_discordant_analysis.R")              # Compute per-gene/domain AUCs and heatmaps
+- `MAVE_primary_analysis.R` — Residue-level analysis
+- `MAVE_secondary_analysis.R` — Variant-level annotation
+- `MAVE_secondary_analysis_results.R` — Evaluate Grantham distances, ROC, concordance
+- `new_ACMG_rule.R` — Compute ACMG-like scores
+- `modified_ACMG_rule.R` — Compute modified ACMG scores
+- `ACMG_rule_results.R` — Generate summary plots
+- `VEP_discordant_analysis.R` — Compute per-gene/domain AUCs and heatmaps
