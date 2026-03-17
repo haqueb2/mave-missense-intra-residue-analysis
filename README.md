@@ -2,17 +2,32 @@
 
 This repository contains scripts used for the analyses in:
 
-“Determining the intra-residue correlation of missense variant impact using MAVE scores: implications for the ACMG/AMP PM5 criterion for DNA variant classification”
+**“Determining the intra-residue correlation of missense variant impact using MAVE scores: implications for the ACMG/AMP PM5 criterion for DNA variant classification” (Dai et al., 2026)**
 
 ## Contents
-- scripts/: R scripts for preprocessing, analysis, and plotting
-- inputs/: small example input files
 
-## Data
-Full datasets are not included. Available at Zenodo DOI or institutional repository.
+- `inputs/`: Example input files containing missense variants derived from MAVE datasets.  
+- `annotations/`: Additional files used by scripts. **Large files are not included** in the repository and must be downloaded separately:  
+  - `AlphaMissense_hg38.tsv`: AlphaMissense scores ([https://github.com/google-deepmind/alphamissense])  
+  - `HUMAN_9606_idmapping.dat`: UniProt ID mapping ([https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/idmapping/by_organism/HUMAN_9606_idmapping.dat.gz])  
+  - `variant_summary.txt`: ClinVar variant summary ([https://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/variant_summary.txt.gz])  
+
+- `MAVE_primary_analysis.R`: Performs residue-level analysis of missense variants using MAVE scores, calculating LOF proportions, likelihood ratios, evidence strength, and generating summary plots.  
+
+- `MAVE_secondary_analysis.R`: Performs variant-level annotation and integration of genomic coordinates, ClinVar, in silico predictors, and AlphaMissense scores for MAVE missense variants.  
+
+- `MAVE_secondary_analysis_results.R`: Analyzes MAVE variant data to evaluate Grantham distances, compare functional classifications to in silico predictors and ClinVar annotations, and generate concordance and ROC visualizations.  
+
+- `new_ACMG_rule.R`: Calculates a new ACMG-like score for MAVE variants by integrating ClinVar annotations, nucleotide/amino acid differences, Grantham distances, and in silico predictor scores, and outputs annotated MAVE and ClinVar lookup tables.  
+
+- `modified_ACMG_rule.R`: Generates a modified ACMG-like score for MAVE variants by integrating LOF/FUNC variant concordance, amino acid differences with Grantham distances, and REVEL scores, producing both a filtered MAVE lookup table and a scored MAVE dataset.  
+
+- `ACMG_rule_results.R`: Generates summary visualizations for ACMG-like scoring of missense variants, including stacked bar plots of total ACMG and PM5 scores, boxplots of predictor-specific VEP scores, and faceted heatmaps comparing grouped predictor scores with PM5 scoring, for both ClinVar-filtered and MAVE-derived datasets.  
+
+- `VEP_discordant_analysis.R`: Computes per-gene and domain-stratified AUCs for VEP tools on MAVE missense variants, generating heatmaps and bar plots to visualize predictive performance and discordance.
 
 ## Requirements
-R with packages: readxl, dplyr, tidyr, ggplot2, stringr, httr, jsonlite, purrr
+
+R with packages: `readxl`, `dplyr`, `tidyr`, `ggplot2`, `stringr`, `httr`, `jsonlite`, `purrr`
 
 ## Usage
-Run scripts sequentially after placing example input files in .
